@@ -1,0 +1,23 @@
+package com.designpattern.chainresponsibility;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * Author Bryan.C <br>
+ * Date 2018/5/13
+ */
+@Setter
+@Getter
+public abstract class Handler {
+    /**
+     * 持有后继的责任对象
+     */
+    protected Handler successor;
+
+    /**
+     * 示意处理请求的方法，虽然这个示意方法是没有传入参数的
+     * 但实际是可以传入参数的，根据具体需要来选择是否传递参数
+     */
+    public abstract void handleRequest();
+}
