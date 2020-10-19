@@ -27,33 +27,32 @@ public class NIOServer {
       Selector selector = Selector.open();
       // 4. 向监听器注册接收事件
       ssChannel.register(selector, SelectionKey.OP_ACCEPT);
-      while (selector.select() > 0) {
-        // 5. 获取监听器上所有的监听事件值
+      System.out.println("***************Listening****************");
+      while (true) {
+        // 4. select ready SelectionKey for I/O operation
+        if (selector.selectNow() == 0) {
+          continue;
+        }
+        // 6. 获取监听器上所有的监听事件值
         Iterator<SelectionKey> it = selector.selectedKeys().iterator();
-
-        // 6. 如果有值
+        int i=0;
+        // 7. 如果有值
         while (it.hasNext()) {
-          // 7. 取到SelectionKey
+          // 8. 取到SelectionKey
           SelectionKey key = it.next();
 
-          // 8. 根据key值判断对应的事件
+          // 9. 根据key值判断对应的事件
           if (key.isAcceptable()) {
-            // 9. 接入处理
+            // 10. 接入处理
             SocketChannel socketChannel = ssChannel.accept();
             socketChannel.configureBlocking(false);
             socketChannel.register(selector, SelectionKey.OP_READ);
           } else if (key.isReadable()) {
-            // 10. 可读事件处理
+            // 11. 可读事件处理
             SocketChannel channel = (SocketChannel) key.channel();
-            readMsg(channel);
-          } else if (key.isConnectable()) {
-            System.out.println("connect");
-          } else if (key.isWritable()) {
-            SocketChannel channel = (SocketChannel) key.channel();
-            channel.write(ByteBuffer.allocate(1024));
-            System.out.println("write");
+            readMsg(channel,key);
           }
-          // 11. 移除当前key
+          // 12. 移除当前key
           it.remove();
         }
       }
@@ -69,14 +68,20 @@ public class NIOServer {
     }
   }
 
-  private static void readMsg(SocketChannel channel) throws IOException {
+  private static void readMsg(SocketChannel channel,SelectionKey key) throws IOException {
     ByteBuffer buf = ByteBuffer.allocate(1024);
     int len = 0;
+    boolean a=false;
     while ((len = channel.read(buf)) > 0) {
+      a=true;
       buf.flip();
       byte[] bytes = new byte[1024];
       buf.get(bytes, 0, len);
       System.out.println(new String(bytes, 0, len));
+    }
+    if(a) {
+      channel.close();
+      key.cancel();
     }
   }
 
