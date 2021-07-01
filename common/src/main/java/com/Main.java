@@ -1,7 +1,7 @@
 package com;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import com.google.common.collect.Lists;
 
 /**
  * Author: Bryan.C <br>
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Main {
     public static void main(String[] args) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        System.out.println(LocalDateTime.now().format(formatter));
+        System.out.println(Lists.newArrayList("a","b","c").containsAll(Lists.newArrayList("a","b")));
+        System.out.println(Lists.newArrayList("a","b").containsAll(Lists.newArrayList("a","b","c")));
     }
 }

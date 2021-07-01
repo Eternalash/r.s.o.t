@@ -1,4 +1,4 @@
-package com.leetcode;
+package leetcode;
 
 /**
  * Author: Bryan.C <br>
