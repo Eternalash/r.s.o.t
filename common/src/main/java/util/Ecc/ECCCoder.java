@@ -88,7 +88,7 @@ public class ECCCoder {
 
         ECPoint g = new ECPoint(x1, x2);
 
-        // the order of generator
+        // the order of com.personal.bryan.generator
         BigInteger n = new BigInteger(
                 "5846006549323611672814741753598448348329118574063", 10);
         // the cofactor

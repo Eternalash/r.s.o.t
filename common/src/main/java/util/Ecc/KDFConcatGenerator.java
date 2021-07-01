@@ -36,7 +36,7 @@ import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.crypto.params.KDFParameters;
 
 /**
- * Basic KDF generator for derived keys and ivs
+ * Basic KDF com.personal.bryan.generator for derived keys and ivs
  * <br>
  * http://csrc.nist.gov/publications/nistpubs/800-56A/SP800-56A_Revision1_Mar08-2007.pdf
  */
@@ -49,7 +49,7 @@ public class KDFConcatGenerator
   byte[] otherInfo;
 
   /**
-   * Construct a KDF Parameters generator.
+   * Construct a KDF Parameters com.personal.bryan.generator.
    * <p>
    *
    * @param digest the digest to be used as the source of derived keys.

@@ -11,7 +11,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * Date: 2018/10/15 10:40
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.personal.bryan.comm", "com.personal.bryan.spring"})
+@ComponentScan(basePackages = {"com.personal.bryan.comm", "com.personal.bryan.spring","com.personal.bryan.abstractservice","com.personal.bryan.generator"})
+//@ComponentScan(basePackages = {"com.personal.bryan.circulardependencies"})
 @EnableAspectJAutoProxy
 public class Application {
   public static void main(String[] args) {
