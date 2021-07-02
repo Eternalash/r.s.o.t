@@ -1,11 +1,8 @@
 package com.personal.bryan.spring;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.personal.bryan.abstractservice.IRiskHandlerService;
 import com.personal.bryan.comm.AnnotationService;
 import com.personal.bryan.comm.Shouting;
-import com.personal.bryan.generator.domain.Temperature;
-import com.personal.bryan.generator.mapper.TemperatureMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,13 +26,10 @@ public class GreetingController {
   private Shouting shouting;
   @Autowired
   private List<IRiskHandlerService> riskHandlerServiceList;
-  @Autowired
-  private TemperatureMapper temperatureMapper;
 
   @RequestMapping("/greeting")
   public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
     annotationService.print(name+shouting.process());
-    System.out.println(temperatureMapper.selectCount(new QueryWrapper<Temperature>().lambda().gt(Temperature::getId,1)));
     return new Greeting(counter.incrementAndGet(), String.format(template, name));
   }
 
