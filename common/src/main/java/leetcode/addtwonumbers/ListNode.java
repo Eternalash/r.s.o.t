@@ -1,4 +1,4 @@
-package com.leetcode.addtwonumbers;
+package leetcode.addtwonumbers;
 
 /**
  * @Author:bryan.c

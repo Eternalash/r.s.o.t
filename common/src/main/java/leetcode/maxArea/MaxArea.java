@@ -1,4 +1,4 @@
-package com.leetcode.maxArea;
+package leetcode.maxArea;
 
 import java.util.Arrays;
 

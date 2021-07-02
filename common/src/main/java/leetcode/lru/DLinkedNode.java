@@ -1,4 +1,4 @@
-package com.leetcode.lru;
+package leetcode.lru;
 
 /**
  * @Author:bryan.c
