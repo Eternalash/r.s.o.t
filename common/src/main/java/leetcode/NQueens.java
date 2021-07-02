@@ -8,62 +8,70 @@ import java.util.*;
  * @package: leecode
  */
 public class NQueens {
+    //创建结果集res
+    static List<List<String>> res = new ArrayList<>();
     public static void main(String[] args) {
         solveNQueens(8).forEach(strings -> {
-            strings.forEach(System.out::print);
-            System.out.println();
+            strings.forEach(System.out::println);
+            System.out.println("-------------------------");
         });
     }
 
     public static List<List<String>> solveNQueens(int n) {
-        List<List<String>> solutions = new ArrayList<List<String>>();
-        int[] queens = new int[n];
-        Arrays.fill(queens, -1);
-        Set<Integer> columns = new HashSet<Integer>();
-        Set<Integer> diagonals1 = new HashSet<Integer>();
-        Set<Integer> diagonals2 = new HashSet<Integer>();
-        backtrack(solutions, queens, n, 0, columns, diagonals1, diagonals2);
-        return solutions;
-    }
-
-    public static void backtrack(List<List<String>> solutions, int[] queens, int n, int row, Set<Integer> columns, Set<Integer> diagonals1, Set<Integer> diagonals2) {
-        if (row == n) {
-            List<String> board = generateBoard(queens, n);
-            solutions.add(board);
-        } else {
-            for (int i = 0; i < n; i++) {
-                if (columns.contains(i)) {
-                    continue;
-                }
-                int diagonal1 = row - i;
-                if (diagonals1.contains(diagonal1)) {
-                    continue;
-                }
-                int diagonal2 = row + i;
-                if (diagonals2.contains(diagonal2)) {
-                    continue;
-                }
-                queens[row] = i;
-                columns.add(i);
-                diagonals1.add(diagonal1);
-                diagonals2.add(diagonal2);
-                backtrack(solutions, queens, n, row + 1, columns, diagonals1, diagonals2);
-                queens[row] = -1;
-                columns.remove(i);
-                diagonals1.remove(diagonal1);
-                diagonals2.remove(diagonal2);
+        ArrayList<StringBuilder> track = new ArrayList<>();
+        //初始化棋盘
+        for(int i = 0; i < n; i++){
+            StringBuilder str = new StringBuilder();
+            for(int j = 0; j < n; j++){
+                str.append('X');
             }
+            track.add(str);
         }
+        backtrace(track, 0);
+        return res;
     }
 
-    public static List<String> generateBoard(int[] queens, int n) {
-        List<String> board = new ArrayList<String>();
-        for (int i = 0; i < n; i++) {
-            char[] row = new char[n];
-            Arrays.fill(row, '.');
-            row[queens[i]] = 'Q';
-            board.add(new String(row));
+    static void backtrace(ArrayList<StringBuilder> track, int row){
+        // 如果每一行都成功放置了皇后，记录结果
+        if(row == track.size()){
+            ArrayList<String> track1 = new ArrayList<>();
+            //讲StringBuilder类转化为String类
+            for(int i = 0; i < track.size(); i++){
+                track1.add(track.get(i).toString());
+            }
+            res.add(track1);
+            return;
         }
-        return board;
+
+        int n = track.get(row).length();
+        for(int col = 0; col < n; col++){
+            if(!isValid(track,row,col)) continue;
+            //做选择
+            track.get(row).setCharAt(col,'Q');
+            //进入下一行放皇后
+            backtrace(track, row+1);
+            //撤销选择
+            track.get(row).setCharAt(col,'X');
+        }
+    }
+    // 是否可以在目标位置放皇后
+    static boolean isValid(ArrayList<StringBuilder> track, int row, int col){
+        int  n = track.size();
+        // 检查列是否有皇后冲突
+        for(int i = 0; i < n; i++){
+            if(track.get(i).charAt(col) == 'Q')
+                return false;
+        }
+        // 检查右上方是否有皇后冲突
+        for(int i = row-1, j = col+1; i>=0 && j <n; i--,j++){
+            if(track.get(i).charAt(j) == 'Q')
+                return false;
+        }
+        // 检查左上方是否有皇后冲突
+        for(int i= row-1, j = col-1; i>=0 && j >=0; i--,j--){
+            if(track.get(i).charAt(j) == 'Q')
+                return false;
+        }
+        return true;
     }
 }
