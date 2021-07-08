@@ -1,4 +1,4 @@
-package leetcode.lru;
+package leetcode.infrastructure;
 
 /**
  * @Author:bryan.c

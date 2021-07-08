@@ -1,5 +1,7 @@
 package leetcode.lru;
 
+import leetcode.infrastructure.DLinkedNode;
+
 import java.util.HashMap;
 import java.util.Map;
 

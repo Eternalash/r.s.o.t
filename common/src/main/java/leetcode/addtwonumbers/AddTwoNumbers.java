@@ -1,5 +1,7 @@
 package leetcode.addtwonumbers;
 
+import leetcode.infrastructure.ListNode;
+
 /**
  * @Author:bryan.c
  * @Date:2020/11/19

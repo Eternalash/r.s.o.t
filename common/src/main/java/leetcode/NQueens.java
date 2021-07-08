@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author: bryan.c
@@ -34,12 +35,7 @@ public class NQueens {
     static void backtrace(ArrayList<StringBuilder> track, int row){
         // 如果每一行都成功放置了皇后，记录结果
         if(row == track.size()){
-            ArrayList<String> track1 = new ArrayList<>();
-            //讲StringBuilder类转化为String类
-            for(int i = 0; i < track.size(); i++){
-                track1.add(track.get(i).toString());
-            }
-            res.add(track1);
+            res.add(track.stream().map(StringBuilder::toString).collect(Collectors.toList()));
             return;
         }
 
