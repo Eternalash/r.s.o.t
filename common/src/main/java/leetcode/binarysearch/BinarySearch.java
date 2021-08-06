@@ -1,6 +1,7 @@
 package leetcode.binarysearch;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 /**
  * Author:bryan.c
@@ -29,8 +30,12 @@ public class BinarySearch {
     private static final BinarySearch INSTANCE=new BinarySearch();
 
     public static void main(String[] args){
-        int[] nums=new int[]{1,2,4,6,7,8,8,9,11,20};
-        System.out.println( INSTANCE.binarySearch(nums,9));
+        Integer a=null;
+        System.out.println(Optional.ofNullable(a).orElse(0).compareTo(1)==0);
+        int[] nums=new int[]{1,2,4,6,8,8,8,9,11,20};
+        System.out.println( INSTANCE.binarySearch(nums,8));
+        System.out.println( INSTANCE.left_bound(nums,8));
+        System.out.println( INSTANCE.right_bound(nums,8));
     }
 
     public int binarySearch(int[] nums, int target) {

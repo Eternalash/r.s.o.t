@@ -20,8 +20,8 @@ public class ListNode extends Object {
         this.next = next;
     }
 
-    @Override
-    public String toString() {
+
+    public String string() {
         StringBuilder stringBuilder=new StringBuilder("[");
         ListNode cur=this;
         while (cur.next!=null){
