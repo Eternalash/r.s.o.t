@@ -25,6 +25,12 @@ public class HotRing {
         System.out.println(bloomFilter.mightContain("123456"));
         System.out.println(bloomFilter.mightContain("10086"));
 
+        /**
+         * 可扩展性 Bloom 过滤器：一旦 Bloom 过滤器达到容量，就会在其上创建一个新的过滤器，不存在重启即失效或者定时任务维护的成本：
+         * 基于 Google 实现的布隆过滤器需要启动之后初始化布隆过滤器
+         *
+         * 缺点：需要网络 IO，性能比 Google 布隆过滤器低
+         */
 
         Config config = new Config();
         config.useSingleServer().setAddress("redis://192.168.14.104:6379");
