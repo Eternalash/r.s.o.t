@@ -2,6 +2,10 @@ package leetcode;
 
 import leetcode.infrastructure.ListNode;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
+
 /**
  * Author:bryan.c
  * Date:2021/7/8
@@ -35,18 +39,56 @@ import leetcode.infrastructure.ListNode;
 public class LeetCode23 {
 
     public static void main (String[] args){
-        LeetCode23 leetCode23=new LeetCode23();
-        ListNode node1=new ListNode(1);
-        node1.next=new ListNode(4);
-        node1.next.next=new ListNode(5);
-        ListNode node2=new ListNode(1);
-        node2.next=new ListNode(3);
-        node2.next.next=new ListNode(4);
-        ListNode node3=new ListNode(2);
-        node3.next=new ListNode(6);
-        ListNode[] list= new ListNode[]{node1,node2,node3};
-        ListNode result= leetCode23.mergeKLists(list);
-        System.out.println(result.toString());
+        CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
+            throw new IllegalArgumentException();
+        });
+        try
+        {
+            CompletableFuture.allOf(future1).join();
+        }
+        catch (Exception e1)
+        {
+            System.out.println("I'd exit here."); // *1
+        }
+
+        try
+        {
+            future1.get();
+        }
+        catch (InterruptedException | ExecutionException e)
+        {
+            System.out.println("Entered!");
+        }
+
+        future1 = CompletableFuture.supplyAsync(() -> {
+            throw new IllegalArgumentException();
+        });
+        try
+        {
+            CompletableFuture.allOf(future1).join();
+            future1.get();
+        }
+        catch (CompletionException e1) // this is unchecked, of course
+        {
+            System.out.println("Exception when joining");
+        }
+        catch (InterruptedException | ExecutionException e)
+        {
+            System.out.println("Exception when getting");
+        }
+
+//        LeetCode23 leetCode23=new LeetCode23();
+//        ListNode node1=new ListNode(1);
+//        node1.next=new ListNode(4);
+//        node1.next.next=new ListNode(5);
+//        ListNode node2=new ListNode(1);
+//        node2.next=new ListNode(3);
+//        node2.next.next=new ListNode(4);
+//        ListNode node3=new ListNode(2);
+//        node3.next=new ListNode(6);
+//        ListNode[] list= new ListNode[]{node1,node2,node3};
+//        ListNode result= leetCode23.mergeKLists(list);
+//        System.out.println(result.toString());
     }
 
     public ListNode mergeKLists(ListNode[] lists) {

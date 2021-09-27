@@ -1,7 +1,5 @@
 package leetcode.lru;
 
-import leetcode.infrastructure.DLinkedNode;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,11 +14,23 @@ public class LRUCache {
     private DLinkedNode head = new DLinkedNode();
     private DLinkedNode tail = new DLinkedNode();
 
-    private LRUCache() {
+    class DLinkedNode {
+        DLinkedNode prev;
+        DLinkedNode next;
+        int key;
+        int value;
+
+        public DLinkedNode() {
+        }
+
+        public DLinkedNode(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 
     public LRUCache(int capacity) {
-        this.capacity = 0;
+        this.capacity = capacity;
         this.size = 0;
         this.head.next = this.tail;
         this.tail.prev = this.head;

@@ -1,5 +1,9 @@
 package com.threadPool;
 
+import org.apache.tomcat.jni.Time;
+
+import java.time.LocalDateTime;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +16,7 @@ public class ThreadPoolBootstrap {
   public static void main(String[] args) {
     Runnable myRunnable = () -> {
       try {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         System.out.println(Thread.currentThread().getName() + " run");
       } catch (InterruptedException e) {
         e.printStackTrace();
@@ -35,6 +39,7 @@ public class ThreadPoolBootstrap {
 //    ThreadPoolExecutor executor = new ThreadPoolExecutor(3, 6, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());//核心线程数为3，最大线程数为6。超时时间为5秒,队列是SynchronousQueue
     /**
      *LinkedBlockingDeque根本不受最大线程数影响。
+     * 无界队列可以无限制接收任务直至队列溢出OOM
      */
 //    ThreadPoolExecutor executor = new ThreadPoolExecutor(3, 4, 5, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>());//核心线程数是3，最大线程数是4，队列是LinkedBlockingDeque
     /**
@@ -47,6 +52,7 @@ public class ThreadPoolBootstrap {
      * 加入第五个任务时，因为队列满了，就创建新线程执行，创建了线程4。当加入第六个线程时，也会尝试创建线程，但是因为已经达到了线程池最大线程数，所以直接抛异常了。
      */
 //    ThreadPoolExecutor executor = new ThreadPoolExecutor(3, 4, 5, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(1));
+
     /**
      * 这次在添加第五个任务时就报错了，因为SynchronousQueue根本不保存任务，收到一个任务就去创建新线程。所以第五个就会抛异常了。
      */
